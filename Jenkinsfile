@@ -1,79 +1,46 @@
 pipeline {
-agent any
+agent {
+docker {
+image 'mcr.microsoft.com/dotnet/sdk:10.0'
+args '-u root'
+}
+}
 environment {
     REGISTRY = "localhost:9001"
     IMAGE_NAME = "myapp"
     IMAGE_TAG = "latest"
-    DOTNET_CLI_TELEMETRY_OPTOUT = "1"
 }
 
 stages {
 
-    stage('Checkout Source') {
+    stage('Checkout') {
         steps {
-            echo "Checking out source code..."
-            git branch: 'master', url: 'https://github.com/tamdtvn/myapp.git'
+            git 'https://github.com/tamdtvn/myapp.git'
         }
     }
 
-    stage('Restore Dependencies') {
+    stage('Restore') {
         steps {
-            echo "Restoring NuGet packages..."
             sh 'dotnet restore'
         }
     }
 
-    stage('Build Project') {
+    stage('Build') {
         steps {
-            echo "Building project..."
-            sh 'dotnet build --configuration Release --no-restore'
+            sh 'dotnet build -c Release'
         }
     }
 
-    stage('Run Tests') {
+    stage('Test') {
         steps {
-            echo "Running tests..."
-            sh 'dotnet test --no-build --verbosity normal'
+            sh 'dotnet test'
         }
     }
 
-    stage('Publish Application') {
+    stage('Publish') {
         steps {
-            echo "Publishing application..."
             sh 'dotnet publish -c Release -o publish'
         }
-    }
-
-    stage('Build Docker Image') {
-        steps {
-            echo "Building Docker image..."
-            sh 'docker build -t $REGISTRY/$IMAGE_NAME:$IMAGE_TAG .'
-        }
-    }
-
-    stage('Push Docker Image') {
-        steps {
-            echo "Pushing image to local registry..."
-            sh 'docker push $REGISTRY/$IMAGE_NAME:$IMAGE_TAG'
-        }
-    }
-
-    stage('Deploy to Kubernetes') {
-        steps {
-            echo "Deploying to Kubernetes..."
-            sh 'kubectl apply -f k8s/deployment.yaml'
-        }
-    }
-}
-
-post {
-
-    success {
-        echo "Pipeline completed successfully!"
-    }
-
-    failure {
-        echo "Pipeline failed!"
     }
 }
 }
