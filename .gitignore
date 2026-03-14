@@ -1,0 +1,114 @@
+# =========================
+
+# .NET / Blazor .gitignore
+
+# =========================
+
+# Build results
+
+bin/
+obj/
+out/
+
+# Publish output
+
+publish/
+artifacts/
+
+# Logs
+
+*.log
+
+# Visual Studio
+
+.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Rider
+
+.idea/
+
+# VS Code
+
+.vscode/
+
+# OS files
+
+.DS_Store
+Thumbs.db
+
+# NuGet
+
+*.nupkg
+*.snupkg
+packages/
+.nuget/
+*.nuget.props
+*.nuget.targets
+
+# Dotnet
+
+project.lock.json
+project.fragment.lock.json
+artifacts/
+
+# ASP.NET / Blazor
+
+wwwroot/lib/
+wwwroot/dist/
+
+# Entity Framework
+
+*.dbmdl
+
+# Test results
+
+TestResults/
+*.trx
+
+# Coverage
+
+coverage/
+*.coverage
+*.coveragexml
+
+# Docker
+
+docker-compose.override.yml
+
+# Kubernetes
+
+*.kubeconfig
+
+# Logs
+
+logs/
+
+# Temp
+
+*.tmp
+*.temp
+temp/
+
+# Rider cache
+
+.idea/
+
+# Node (nếu Blazor WASM có npm)
+
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# Environment files
+
+.env
+.env.local
+
+# Secrets
+
+secrets.json
+appsettings.Development.json
