@@ -1,7 +1,5 @@
 pipeline {
 agent any
-
-```
 environment {
     REGISTRY = "localhost:9001"
     IMAGE_NAME = "myapp"
@@ -78,6 +76,4 @@ post {
         echo "Pipeline failed!"
     }
 }
-```
-
 }
