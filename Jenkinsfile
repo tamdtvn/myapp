@@ -8,13 +8,6 @@ environment {
 }
 
 stages {
-
-    stage('Clean Workspace') {
-        steps {
-            deleteDir()
-        }
-    }
-
     stage('Checkout Code') {
         steps {
             git 'https://github.com/tamdtvn/myapp.git'
@@ -44,7 +37,5 @@ stages {
                 '''
             }
         }
-
 }
-
 }
